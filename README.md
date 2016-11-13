@@ -8,7 +8,7 @@ python3 parser.py
 Note: If you want to exclude stop words, check line number `4` and `37` in `parser.py`
 
 #### Dependencies
-* nltk ([Download here](http://www.nltk.org/install.html))
+* nltk ([Download here](http://www.nltk.org/install.html), for python3 install with pip3)
   * `pos_tag` from `nltk`
     * If this is not present in default installation of nltk, follow the following procedure to include it
 
