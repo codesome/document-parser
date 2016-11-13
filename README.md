@@ -5,7 +5,7 @@
 python3 parser.py
 ```
 
-Note: If you want to exclude stop words, check line number `4` and `38` in `parser.py`
+Note: If you want to exclude stop words, check line number `4` and `37` in `parser.py`
 
 #### Dependencies
 * nltk ([Download here](http://www.nltk.org/install.html))

@@ -34,7 +34,6 @@ def parse(string):
     for i in range(len(words)):
         w_lower = words[i].lower()
 
-
         ### Uncomment these below 2 line to exclude stop words ###
         #if w_lower in stop:
         #   continue
@@ -51,26 +50,19 @@ def parse(string):
         wordDictionary[w_lower]["frequency"] += 1
     # end for
 
-    reducedArray = []
-    wordTags = []
-    for w in wordDictionary:
-        reducedArray.append(wordDictionary[w])
-        wordTags.append(wordDictionary[w]["word"])
-    # end for
-    del wordDictionary
+    reducedArray = [ wordDictionary[wrd] for(wrd) in wordDictionary ]
 
+    wordTags = [ wordDictionary[wrd]["word"] for(wrd) in wordDictionary ]
     wordTags = pos_tag(wordTags)
-    nouns = []
-    for i in range(len(wordTags)):
-        if(wordTags[i][1] == "NN" or wordTags[i][1] == "NNP"):
-            nouns.append(wordTags[i][0])
-        # end if
-    # end for
+
+    isNoun = (lambda tag: tag[:2]=="NN")
+    nouns = [ wrd for(wrd,tag) in wordTags if isNoun(tag) ]
+
     del wordTags
+    del wordDictionary
 
     # sorting in descending
     reducedArray = sorted(reducedArray , key=lambda wd:wd["frequency"] , reverse=True)
-
 
     return {
         "words": words,
@@ -78,6 +70,7 @@ def parse(string):
         "nouns": nouns
     }
 # end parse
+
 
 # test sentense
 sentence = "I am a movie fanatic. When friends want to know what picture won the Oscar in 1980 or who played the police chief in Jaws, they ask me. My friends, though, have stopped asking me if I want to go out to the movies. The problems in getting to the theater, the theater itself, and the behavior of some patrons are all reasons why I often wait for a movie to show up on TV."
