@@ -8,12 +8,12 @@ $ npm start
 ```
 Note: You can set server port in `app.js`. Default is `3000`
 
-#### About API
+### About API
 
-##### Request route: `/parse`
+#### Request route: `/parse`
 * Example `http://localhost:3000/parse`
 
-##### Request parameters
+#### Request parameters
 * `str`: the string to be parsed
 
 * `stopwords`: "true" or "false"
@@ -36,7 +36,7 @@ Note: You can set server port in `app.js`. Default is `3000`
   * Limit on number of words with frequency to receive.
   * Default: All the words
 
-##### Example request patterns
+#### Example request patterns
 
 ```
 http://localhost:3000/parse?str=Hello%20World
@@ -53,7 +53,7 @@ http://localhost:3000/parse?str=This%20is%20parser&nouns=false&limit=2
 
 ```
 
-##### Result structure
+#### Result structure
 
 Result type: [JSON string](http://json.org/example.html)
 
@@ -75,11 +75,11 @@ Result type: [JSON string](http://json.org/example.html)
 }
 ```
 
-##### Example results
+#### Example results
 
 str = "I am a movie fanatic. When friends want to know what picture won the Oscar in 1980 or who played the police chief in Jaws, they ask me. My friends, though, have stopped asking me if I want to go out to the movies. The problems in getting to the theater, the theater itself, and the behavior of some patrons are all reasons why I often wait for a movie to show up on TV."
 
-* ##### Default settings
+* #### Default settings
   ```
   { frequencies:
    [ { word: 'the', frequency: 7 },
@@ -155,7 +155,7 @@ str = "I am a movie fanatic. When friends want to know what picture won the Osca
 
   ```
 
-* ##### limit=10&uniqueWords=true
+* #### limit=10&uniqueWords=true
 
   ```
   { frequencies:
@@ -242,7 +242,7 @@ str = "I am a movie fanatic. When friends want to know what picture won the Osca
      'show' ] }
   ```
 
-* ##### limit=10&nouns=false&tokens=true
+* #### limit=10&nouns=false&tokens=true
 
   ```
   { tokens:
@@ -333,7 +333,7 @@ str = "I am a movie fanatic. When friends want to know what picture won the Osca
      { word: 'theater', frequency: 2 } ] }
   ```
 
-* ##### stopwords=false&nouns=false
+* #### stopwords=false&nouns=false
 
   ```
   { frequencies:
