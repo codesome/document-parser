@@ -20,7 +20,7 @@ Note: You can set server port in `app.js`. Default is `3000`
   * Set it to `false` to ignore stopwords.
   * Default:`true`.
 
-* `tokens`: Boolean "true" or "false"
+* `tokens`: "true" or "false"
   * Set it to `true` to get all the tokens in `str`.
   * Default:`false`
 
@@ -53,7 +53,9 @@ http://localhost:3000/parse?str=This%20is%20parser&nouns=false&limit=2
 
 ```
 
-##### Result format
+##### Result structure
+
+Result type: [JSON string](http://json.org/example.html)
 
 ```
 {
