@@ -153,7 +153,7 @@ str = "I am a movie fanatic. When friends want to know what picture won the Osca
 
   ```
 
-  * ##### `limit=10&uniqueWords=true`
+* ##### limit=10&uniqueWords=true
 
   ```
   { frequencies:
@@ -240,7 +240,7 @@ str = "I am a movie fanatic. When friends want to know what picture won the Osca
      'show' ] }
   ```
 
-  * ##### `limit=10&nouns=false&tokens=true`
+* ##### limit=10&nouns=false&tokens=true
 
   ```
   { tokens:
@@ -331,7 +331,7 @@ str = "I am a movie fanatic. When friends want to know what picture won the Osca
      { word: 'theater', frequency: 2 } ] }
   ```
 
-  * ##### `stopwords=false&nouns=false`
+* ##### stopwords=false&nouns=false
 
   ```
   { frequencies:
