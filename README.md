@@ -57,7 +57,7 @@ http://localhost:3000/parse?str=This%20is%20parser&nouns=false&limit=2
 
 ```
 
-#### Result structure
+### Result structure
 
 Result type: [JSON string](http://json.org/example.html)
 
@@ -69,6 +69,8 @@ Result type: [JSON string](http://json.org/example.html)
           "frequency": Number
       }
   ],
+
+  "properNouns": [ String ],
 
   "nouns": [ String ],
 
@@ -82,6 +84,11 @@ Result type: [JSON string](http://json.org/example.html)
 #### Example results
 
 str = "I am a movie fanatic. When friends want to know what picture won the Oscar in 1980 or who played the police chief in Jaws, they ask me. My friends, though, have stopped asking me if I want to go out to the movies. The problems in getting to the theater, the theater itself, and the behavior of some patrons are all reasons why I often wait for a movie to show up on TV."
+
+
+```bash
+str=I%20am%20a%20movie%20fanatic.%20When%20friends%20want%20to%20know%20what%20picture%20won%20the%20Oscar%20in%201980%20or%20who%20played%20the%20police%20chief%20in%20Jaws%2C%20they%20ask%20me.%20My%20friends%2C%20though%2C%20have%20stopped%20asking%20me%20if%20I%20want%20to%20go%20out%20to%20the%20movies.%20The%20problems%20in%20getting%20to%20the%20theater%2C%20the%20theater%20itself%2C%20and%20the%20behavior%20of%20some%20patrons%20are%20all%20reasons%20why%20I%20often%20wait%20for%20a%20movie%20to%20show%20up%20on%20TV.
+```
 
 * #### Default settings
   ```

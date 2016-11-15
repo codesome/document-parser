@@ -82,7 +82,6 @@ module.exports.parse = function parse(data,callback) {
 			});
 
 			var limit = Number(data.limit) || reducedArray.length; // limit on number of words
-
 			result.frequencies = reducedArray.slice(0,limit);
 
 			if(data.uniqueWords && (data.uniqueWords=="true" || data.uniqueWords==true)){
@@ -101,8 +100,11 @@ module.exports.parse = function parse(data,callback) {
 				wordTag = tagger.tag(wordTag);
 				var nouns = [];
 				if(data.properNouns && (data.properNouns=="true" || data.properNouns==true)){
+				
+					// requested for proper nouns
 					var pNouns = [];
 					for(var i in wordTag){
+				
 						if(wordTag[i][1].substr(0,2) == "NN"){
 							nouns.push(wordTag[i][0]);
 						}
@@ -110,8 +112,10 @@ module.exports.parse = function parse(data,callback) {
 						if(wordTag[i][1].substr(0,3) == "NNP"){
 							pNouns.push(wordTag[i][0]);
 						}
+				
 					}
 					result.properNouns = pNouns;
+				
 				} else {
 					for(var i in wordTag){
 						if(wordTag[i][1].substr(0,2) == "NN"){
@@ -119,19 +123,26 @@ module.exports.parse = function parse(data,callback) {
 						}
 					}
 				}
+
 				result.nouns = nouns;
+			
 			} else if(data.properNouns && (data.properNouns=="true" || data.properNouns==true)){
+			
+				// requested for proper nouns
+			
 				var wordTag = reducedArray.map(function(val){
 					return val.word;
 				});
 				wordTag = tagger.tag(wordTag);
 				var pNouns = [];
+			
 				for(var i in wordTag){
 					if(wordTag[i][1].substr(0,3) == "NNP"){
 						pNouns.push(wordTag[i][0]);
 					}
 				}
 				result.properNouns = pNouns;
+			
 			}
 
 			result = JSON.stringify(result);
