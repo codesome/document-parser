@@ -32,6 +32,10 @@ Note: You can set server port in `app.js`. Default is `3000`
   * Set it to `false` for not to receive nouns.
   * Default: `true`
 
+* `properNouns`: "true" or "false"
+  * Set it to `true` to get proper nouns.
+  * Default: `false`
+
 * `limit`: Number
   * Limit on number of words with frequency to receive.
   * Default: All the words
@@ -357,5 +361,20 @@ str = "I am a movie fanatic. When friends want to know what picture won the Osca
      { word: 'wait', frequency: 1 },
      { word: 'show', frequency: 1 },
      { word: 'stopped', frequency: 1 } ] }
+
+  ```
+
+
+* #### stopwords=false&limit=5&nouns=false&properNouns=true
+
+  ```
+  { frequencies: 
+   [ { word: 'movie', frequency: 2 },
+     { word: 'friends', frequency: 2 },
+     { word: 'theater', frequency: 2 },
+     { word: 'picture', frequency: 1 },
+     { word: 'won', frequency: 1 } ],
+  properNouns: [ 'Oscar', 'Jaws' ] }
+
 
   ```

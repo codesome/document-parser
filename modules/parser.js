@@ -28,7 +28,9 @@ module.exports.parse = function parse(data,callback) {
 
 	try {
 		var result;
-		if(data.str){
+		if(!data.str) {
+			result = null;
+		} else {
 
 			result = {};
 
@@ -98,17 +100,41 @@ module.exports.parse = function parse(data,callback) {
 				});
 				wordTag = tagger.tag(wordTag);
 				var nouns = [];
-				for(var i in wordTag){
-					if(wordTag[i][1].substr(0,2) == "NN"){
-						nouns.push(wordTag[i][0]);
+				if(data.properNouns && (data.properNouns=="true" || data.properNouns==true)){
+					var pNouns = [];
+					for(var i in wordTag){
+						if(wordTag[i][1].substr(0,2) == "NN"){
+							nouns.push(wordTag[i][0]);
+						}
+
+						if(wordTag[i][1].substr(0,3) == "NNP"){
+							pNouns.push(wordTag[i][0]);
+						}
+					}
+					result.properNouns = pNouns;
+				} else {
+					for(var i in wordTag){
+						if(wordTag[i][1].substr(0,2) == "NN"){
+							nouns.push(wordTag[i][0]);
+						}
 					}
 				}
 				result.nouns = nouns;
+			} else if(data.properNouns && (data.properNouns=="true" || data.properNouns==true)){
+				var wordTag = reducedArray.map(function(val){
+					return val.word;
+				});
+				wordTag = tagger.tag(wordTag);
+				var pNouns = [];
+				for(var i in wordTag){
+					if(wordTag[i][1].substr(0,3) == "NNP"){
+						pNouns.push(wordTag[i][0]);
+					}
+				}
+				result.properNouns = pNouns;
 			}
 
 			result = JSON.stringify(result);
-		} else {
-			result = null;
 		}
 
 		callback(false,result);
