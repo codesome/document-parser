@@ -20,13 +20,9 @@ Note: You can set server port in `app.js`. Default is `3000`
   * Set it to `false` to ignore stopwords.
   * Default:`true`.
 
-* `tokens`: "true" or "false"
-  * Set it to `true` to get all the tokens in `str`.
-  * Default:`false`
-
-* `uniqueWords`: "true" or "false"
-  * Set it to `true` to get all the unique words in `str`.
-  * Default: `false`
+* `limit`: Number
+  * Limit on number of words with frequency to receive.
+  * Default: All the words
 
 * `nouns`: "true" or "false"
   * Set it to `false` for not to receive nouns.
@@ -35,10 +31,16 @@ Note: You can set server port in `app.js`. Default is `3000`
 * `properNouns`: "true" or "false"
   * Set it to `true` to get proper nouns.
   * Default: `false`
+  
+* `tokens`: "true" or "false"
+  * Set it to `true` to get all the tokens in `str`.
+  * Default:`false`
 
-* `limit`: Number
-  * Limit on number of words with frequency to receive.
-  * Default: All the words
+* `uniqueWords`: "true" or "false"
+  * Set it to `true` to get all the unique words in `str`.
+  * Default: `false`
+
+
 
 #### Example request patterns
 

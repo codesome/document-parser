@@ -28,7 +28,7 @@ module.exports.parse = function parse(data,callback) {
 
 	try {
 		var result;
-		if(!data.str) {
+		if(!data || !data.str) {
 			result = null;
 		} else {
 
