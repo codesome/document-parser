@@ -19,7 +19,7 @@ Note: You can set server port in `app.js`. Default is `3000`
 * `stopwords`: "true" or "false"
   * Set it to `false` to ignore stopwords.
   * Default:`true`.
-  * [Click here]() to see the words considered as stopwords in this API
+  * [Click here](https://github.com/thecodesome/parser/blob/master/docs/stopwords.md) to see the words considered as stopwords in this API
 
 * `limit`: Number
   * Limit on number of words with frequency to receive.
@@ -350,10 +350,12 @@ str=I%20am%20a%20movie%20fanatic.%20When%20friends%20want%20to%20know%20what%20p
 * #### stopwords=false&nouns=false
 
   ```
-  { frequencies:
+  { frequencies: 
    [ { word: 'movie', frequency: 2 },
      { word: 'friends', frequency: 2 },
+     { word: 'want', frequency: 2 },
      { word: 'theater', frequency: 2 },
+     { word: 'know', frequency: 1 },
      { word: 'picture', frequency: 1 },
      { word: 'won', frequency: 1 },
      { word: 'Oscar', frequency: 1 },
@@ -362,17 +364,20 @@ str=I%20am%20a%20movie%20fanatic.%20When%20friends%20want%20to%20know%20what%20p
      { word: 'chief', frequency: 1 },
      { word: 'Jaws', frequency: 1 },
      { word: 'fanatic', frequency: 1 },
+     { word: 'stopped', frequency: 1 },
+     { word: 'asking', frequency: 1 },
      { word: 'movies', frequency: 1 },
      { word: 'problems', frequency: 1 },
+     { word: 'getting', frequency: 1 },
      { word: 'TV', frequency: 1 },
      { word: 'behavior', frequency: 1 },
      { word: 'patrons', frequency: 1 },
      { word: 'reasons', frequency: 1 },
      { word: 'wait', frequency: 1 },
-     { word: 'show', frequency: 1 },
-     { word: 'stopped', frequency: 1 } ] }
+     { word: 'ask', frequency: 1 } ] }
 
   ```
+
 
 
 * #### stopwords=false&limit=5&nouns=false&properNouns=true
@@ -381,9 +386,9 @@ str=I%20am%20a%20movie%20fanatic.%20When%20friends%20want%20to%20know%20what%20p
   { frequencies: 
    [ { word: 'movie', frequency: 2 },
      { word: 'friends', frequency: 2 },
+     { word: 'want', frequency: 2 },
      { word: 'theater', frequency: 2 },
-     { word: 'picture', frequency: 1 },
-     { word: 'won', frequency: 1 } ],
+     { word: 'know', frequency: 1 } ],
   properNouns: [ 'Oscar', 'Jaws' ] }
 
 
