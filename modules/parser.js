@@ -15,7 +15,7 @@ function tokenize(original) {
 
 		s = s.split(' ');
 
-		if(s[0]=="") s.splice(0,1);
+		if(s[0]=='') s.splice(0,1);
 		if(s[s.length-1]=='') s.pop();
 
 		return s;
@@ -25,126 +25,173 @@ function tokenize(original) {
 	}
 }
 
+function withoutStopwords(words) {
+	var words_len = words.length;
+	var wordObject = {};
+	var w_lower;
+	for(var i=0 ; i<words_len ; i++) {
+		w_lower = words[i].toLowerCase();
+		if(!stopwords[w_lower]){
+			if(!wordObject[w_lower]){
+				wordObject[w_lower] = {
+					word: words[i],
+					frequency: 0
+				};
+			}
+			wordObject[w_lower].frequency++;
+		}
+	}
+
+	return wordObject;
+}
+
+function withStopwords(words) {
+	var words_len = words.length;
+	var wordObject = {};
+	var w_lower;
+	for(var i=0 ; i<words_len ; i++) {
+		w_lower = words[i].toLowerCase();
+		if(!wordObject[w_lower]){
+			wordObject[w_lower] = {
+				word: words[i],
+				frequency: 0
+			};
+		}
+		wordObject[w_lower].frequency++;
+	}
+
+	return wordObject;
+}
+
+function getSortedArray(wordObject) {
+
+	var reducedArray = Object.keys(wordObject).map(function(k){
+		return wordObject[k];
+	});
+
+	reducedArray.sort(function(a,b){
+		if( a.frequency < b.frequency ) return 1;
+		else if( a.frequency > b.frequency ) return -1;
+		else return 0
+	});
+
+	return reducedArray;
+
+}
+
+function getUniqueWords(reducedArray) {
+	return reducedArray.map(function(val){
+		return val.word;
+	});
+}
+
+function getWordTags(reducedArray) {
+	return tagger.tag( getUniqueWords(reducedArray) );
+}
+
+function getNouns(reducedArray) {
+	var wordTag = getWordTags(reducedArray);
+	var nouns = [];
+	for(var i in wordTag){
+		if(wordTag[i][1].substr(0,2) == "NN"){
+			nouns.push(wordTag[i][0]);
+		}
+	}
+	return nouns;
+}
+
+function getProperNouns(reducedArray) {
+	var wordTag = getWordTags(reducedArray);
+	var pNouns = [];			
+	for(var i in wordTag){
+		if(wordTag[i][1].substr(0,3) == "NNP"){
+			pNouns.push(wordTag[i][0]);
+		}
+	}
+	return pNouns;
+}
+
+function getNounsAndProperNouns(reducedArray) {
+	var wordTag = getWordTags(reducedArray);
+	var nouns = [];
+	var pNouns = [];
+
+	for(var i in wordTag){
+				
+		if(wordTag[i][1].substr(0,2) == "NN"){
+			nouns.push(wordTag[i][0]);
+		}
+
+		if(wordTag[i][1].substr(0,3) == "NNP"){
+			pNouns.push(wordTag[i][0]);
+		}
+				
+	}
+
+	return {
+		nouns: nouns,
+		properNouns: pNouns
+	};
+	
+}
+
 module.exports.parse = function parse(data,callback) {
 
 	try {
 		var result;
-		if(!data || !data.str) {
+		if(!data || !data.str) { // #anchor1#
 			result = null;
 		} else {
 
 			result = {};
 
-			var words = tokenize(data.str);
-			var wordObject = {};
-			var w_lower;
-			var words_len = words.length;
+			var words = tokenize(data.str); // #anchor2#
+			var wordObject;
 
-			if(data.tokens && (data.tokens=="true" || data.tokens==true)){
+			// getting unique words with frequency
+			if(data.stopwords=="false"){ // #anchor4#
+				// without stopwords
+				wordObject = withoutStopwords(words);
+			} else {
+				// with stopwords
+				wordObject = withStopwords(words);
+			}
+			
+			// sorted array of words with frequency
+			var reducedArray = getSortedArray(wordObject);
+			var limit = Number(data.limit) || reducedArray.length; // #anchor5#
+			result.frequencies = reducedArray.slice(0,limit);
+
+			// nouns
+			if(data.nouns!="false"){ // #anchor7#
+				// requested for nouns
+				if(data.properNouns=="true"){ // #anchor7-1#
+					
+					var NN = getNounsAndProperNouns(reducedArray);
+					result.nouns = NN.nouns;
+					result.properNouns = NN.properNouns;
+				
+				} else { // #anchor7-2#
+					result.nouns = getNouns(reducedArray);
+				}
+			
+			} else if(data.properNouns=="true"){ // #anchor8#
+				// requested for proper nouns
+				result.properNouns = getProperNouns(reducedArray);
+			}
+
+			// all tokens
+			if(data.tokens=="true"){ // #anchor3#
 				// tokens requested
 				result.tokens = words;
 			}
 
-			if(data.stopwords && (data.stopwords=="false" || data.stopwords==false)){
-				// without stopwords
-				for(var i=0 ; i<words_len ; i++) {
-					w_lower = words[i].toLowerCase();
-					if(!stopwords[w_lower]){
-						if(!wordObject[w_lower]){
-							wordObject[w_lower] = {
-								word: words[i],
-								frequency: 0
-							};
-						}
-						wordObject[w_lower].frequency++;
-					}
-				}
-			} else {
-				// with stopwords
-				for(var i=0 ; i<words_len ; i++) {
-					w_lower = words[i].toLowerCase();
-					if(!wordObject[w_lower]){
-						wordObject[w_lower] = {
-							word: words[i],
-							frequency: 0
-						};
-					}
-					wordObject[w_lower].frequency++;
-				}
-			}
-
-			var reducedArray = Object.keys(wordObject).map(function(k){
-				return wordObject[k];
-			});
-			reducedArray.sort(function(a,b){
-				if( a.frequency < b.frequency ) return 1;
-				else if( a.frequency > b.frequency ) return -1;
-				else return 0
-			});
-
-			var limit = Number(data.limit) || reducedArray.length; // limit on number of words
-			result.frequencies = reducedArray.slice(0,limit);
-
-			if(data.uniqueWords && (data.uniqueWords=="true" || data.uniqueWords==true)){
+			// unique words
+			if(data.uniqueWords=="true"){ // #anchor6#
 				// requested for all unique words
-				result.uniqueWords = reducedArray.map(function(val){
-					return val.word;
-				});
+				result.uniqueWords = getUniqueWords(reducedArray);
 			}
 
-			
-			if(!data.nouns || (data.nouns!="false" && data.nouns!=false)){
-				// requested for nouns
-				var wordTag = reducedArray.map(function(val){
-					return val.word;
-				});
-				wordTag = tagger.tag(wordTag);
-				var nouns = [];
-				if(data.properNouns && (data.properNouns=="true" || data.properNouns==true)){
-				
-					// requested for proper nouns
-					var pNouns = [];
-					for(var i in wordTag){
-				
-						if(wordTag[i][1].substr(0,2) == "NN"){
-							nouns.push(wordTag[i][0]);
-						}
-
-						if(wordTag[i][1].substr(0,3) == "NNP"){
-							pNouns.push(wordTag[i][0]);
-						}
-				
-					}
-					result.properNouns = pNouns;
-				
-				} else {
-					for(var i in wordTag){
-						if(wordTag[i][1].substr(0,2) == "NN"){
-							nouns.push(wordTag[i][0]);
-						}
-					}
-				}
-
-				result.nouns = nouns;
-			
-			} else if(data.properNouns && (data.properNouns=="true" || data.properNouns==true)){
-			
-				// requested for proper nouns
-			
-				var wordTag = reducedArray.map(function(val){
-					return val.word;
-				});
-				wordTag = tagger.tag(wordTag);
-				var pNouns = [];
-			
-				for(var i in wordTag){
-					if(wordTag[i][1].substr(0,3) == "NNP"){
-						pNouns.push(wordTag[i][0]);
-					}
-				}
-				result.properNouns = pNouns;
-			
-			}
 
 			result = JSON.stringify(result);
 		}
