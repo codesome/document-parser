@@ -1,17 +1,10 @@
 # parser
 
-```bash
-$ git clone https://github.com/thecodesome/parser.git
-$ cd parser/
-$ npm install
-$ npm start
-```
-Note: You can set server port in `app.js`. Default is `3000`
+[http://codesome.pythonanywhere.com/](http://codesome.pythonanywhere.com/)
 
 ### About API
 
-#### Request route: `/parse`
-* Example `http://localhost:3000/parse`
+Request URL: `http://codesome.pythonanywhere.com/parse`
 
 #### Request parameters
 * `str`: the string to be parsed
@@ -19,7 +12,6 @@ Note: You can set server port in `app.js`. Default is `3000`
 * `stopwords`: "true" or "false"
   * Set it to `false` to ignore stopwords.
   * Default:`true`.
-  * [Click here](https://github.com/thecodesome/parser/blob/master/docs/stopwords.md) to see the words considered as stopwords in this API
 
 * `limit`: Number
   * Limit on number of words with frequency to receive.
@@ -46,17 +38,17 @@ Note: You can set server port in `app.js`. Default is `3000`
 #### Example request patterns
 
 ```
-http://localhost:3000/parse?str=Hello%20World
+http://codesome.pythonanywhere.com/parse?str=Hello%20World
 
-http://localhost:3000/parse?str=I%20am%20one%20sentence.%20And%2C%20I%20am%20another%20sentence
+http://codesome.pythonanywhere.com/parse?str=I%20am%20one%20sentence.%20And%2C%20I%20am%20another%20sentence
 
-http://localhost:3000/parse?str=This%20is%20parser&stopwords=false
+http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&stopwords=false
 
-http://localhost:3000/parse?str=This%20is%20parser&tokens=true
+http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&tokens=true
 
-http://localhost:3000/parse?str=This%20is%20parser&stopwords=false&uniqueWords=true
+http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&stopwords=false&uniqueWords=true
 
-http://localhost:3000/parse?str=This%20is%20parser&nouns=false&limit=2
+http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&nouns=false&limit=2
 
 ```
 
