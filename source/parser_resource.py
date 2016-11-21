@@ -1,6 +1,45 @@
 import re
+from keywords import keywords
 from nltk.corpus import stopwords
 stop = set(stopwords.words('english'))
+
+topic_keywords = {
+
+    "entertainment": {
+        "sets": [
+            {
+                "words":["entertainment","song","movie","film","music","actor"],
+                "points": 3
+            },
+            {
+                "words":["character","director","action","fiction","role"],
+                "points": 2
+            },
+            {
+                "words":["market","party","play"],
+                "points": 1
+            }
+        ]
+    },
+
+    "sports": {
+        "sets": [
+            {
+                "words":["sport","olympics","soccer","football","cricket","archery", "athletics", "badminton", "basketball", "volleyball", "boxing", "cycling", "diving", "fencing", "golf", "gymnastics", "handball", "hockey", "judo", "rowing", "rugby", "sailing", "shooting", "swimming", "tennis", "wrestling", "weightlifting"],
+                "points": 3
+            },
+            {
+                "words":["match","athelete","tournament","team","player","players","series","runner","goal","league","hole","batsman","game","cup","wicket"],
+                "points": 2
+            },
+            {
+                "words":["play","association","season","court","test","club","round","track"],
+                "points": 1
+            }
+        ]
+    }
+
+}
 
 def tokenize(sentence):
     """ Returns an array with all the words in the sentence """
@@ -17,6 +56,7 @@ def tokenize(sentence):
 # end tokenize
 
 def withStopwords(words):
+    """ Returns words with their frequencies (includes stopwords) """
     wordDictionary = {}
     for i in range(len(words)):
         w_lower = words[i].lower()
@@ -33,6 +73,7 @@ def withStopwords(words):
     return wordDictionary
 
 def withoutStopwords(words):
+    """ Returns words with their frequencies (excludes stopwords) """
     wordDictionary = {}
     for i in range(len(words)):
         w_lower = words[i].lower()
@@ -51,3 +92,35 @@ def withoutStopwords(words):
         # end if
     # end for
     return wordDictionary
+
+def topic_points(doc):
+    """ Assigns points to the topics """
+    
+    lda_topics = keywords(doc.lower())
+
+    points = {
+        "entertainment":0,
+        "sports":0
+    }
+
+    for i in lda_topics:
+        for tp in topic_keywords:
+            for s in topic_keywords[tp]["sets"]:
+                if i in s["words"]:
+                    points[tp] += s["points"]
+
+    return [ {"topic":t,"points":points[t]} for t in points ]
+
+def getDifferenceLimit(val):
+    if val>0 and val<5:
+        return 1
+    elif val>=5 and val<10:
+        return 2
+    elif val>=10 and val<20:
+        return 5
+    elif val>=20 and val<25:
+        return 7
+    elif val>=25 and val<30:
+        return 10
+    else:
+        return 15

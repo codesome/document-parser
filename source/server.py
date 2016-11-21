@@ -1,15 +1,21 @@
-import flask
-from flask import Flask
-from flask import request
-from parser import parse
+from flask import Flask,request,jsonify
+from parser import *
 
 app = Flask(__name__)
 
 @app.route("/parse")
-def handler():
+def parse_handler():
     data = parse(request.args)
     if data:
-    	return flask.jsonify( **data )
+    	return jsonify( **data )
+    else:
+    	return "null"
+
+@app.route("/topics")
+def topic_handler():
+    data = topics(request.args.get("str"))
+    if data:
+	    return jsonify( **data )
     else:
     	return "null"
 

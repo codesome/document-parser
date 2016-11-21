@@ -57,3 +57,27 @@ def parse (args):
     except:
         return None
 
+def topics(doc):
+    if doc != None:
+        try:
+            points = topic_points(doc)
+            points = [ i for i in points if i["points"]>0 ]
+            points = sorted(points , key=lambda i:i["points"] , reverse=True)
+
+            result = []
+            if len(points)>0:    
+                limit = getDifferenceLimit( (points[0]["points"] or 0) or 0)
+                ref = points[0]["points"]
+                for i in points:
+                    if i["points"]>=20 or (ref-i["points"])<=limit:
+                        result.append(i["topic"])
+                    else :
+                        break
+
+
+            return { "topics":result }
+
+        except:
+            return None
+    else :
+        return None
