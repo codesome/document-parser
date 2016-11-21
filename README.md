@@ -10,100 +10,100 @@
   * To get topic related to the text
   * Note: Only `Sports` and `Entertainment` are supported
 
-  ---
+---
 
-  ### `http://codesome.pythonanywhere.com/parse`
+### `http://codesome.pythonanywhere.com/parse`
 
-  #### Request parameters
-  * `str`: the text to be parsed
+#### Request parameters
+* `str`: the text to be parsed
 
-  * `stopwords`: "true" or "false"
-    * Set it to `false` to ignore stopwords.
-    * Default:`true`.
+* `stopwords`: "true" or "false"
+  * Set it to `false` to ignore stopwords.
+  * Default:`true`.
 
-  * `limit`: Number
-    * Limit on number of words with frequency to receive.
-    * Default: All the words
+* `limit`: Number
+  * Limit on number of words with frequency to receive.
+  * Default: All the words
 
-  * `nouns`: "true" or "false"
-    * Set it to `false` for not to receive nouns.
-    * Default: `true`
+* `nouns`: "true" or "false"
+  * Set it to `false` for not to receive nouns.
+  * Default: `true`
 
-  * `properNouns`: "true" or "false"
-    * Set it to `true` to get proper nouns.
-    * Default: `false`
+* `properNouns`: "true" or "false"
+  * Set it to `true` to get proper nouns.
+  * Default: `false`
 
-  * `tokens`: "true" or "false"
-    * Set it to `true` to get all the tokens in `str`.
-    * Default:`false`
+* `tokens`: "true" or "false"
+  * Set it to `true` to get all the tokens in `str`.
+  * Default:`false`
 
-  * `uniqueWords`: "true" or "false"
-    * Set it to `true` to get all the unique words in `str`.
-    * Default: `false`
+* `uniqueWords`: "true" or "false"
+  * Set it to `true` to get all the unique words in `str`.
+  * Default: `false`
 
 
 
-  #### Example request patterns
+#### Example request patterns
 
-  ```
-  http://codesome.pythonanywhere.com/parse?str=Hello%20World
+```
+http://codesome.pythonanywhere.com/parse?str=Hello%20World
 
-  http://codesome.pythonanywhere.com/parse?str=I%20am%20one%20sentence.%20And%2C%20I%20am%20another%20sentence
+http://codesome.pythonanywhere.com/parse?str=I%20am%20one%20sentence.%20And%2C%20I%20am%20another%20sentence
 
-  http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&stopwords=false
+http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&stopwords=false
 
-  http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&tokens=true
+http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&tokens=true
 
-  http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&stopwords=false&uniqueWords=true
+http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&stopwords=false&uniqueWords=true
 
-  http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&nouns=false&limit=2
+http://codesome.pythonanywhere.com/parse?str=This%20is%20parser&nouns=false&limit=2
 
-  ```
+```
 
-  ### Result structure
+### Result structure
 
-  Result type: [JSON string](http://json.org/example.html)
+Result type: [JSON string](http://json.org/example.html)
 
-  ```
-  {
-    "frequencies": [
-        {
-            "word": String,
-            "frequency": Number
-        }
-    ],
+```
+{
+  "frequencies": [
+      {
+          "word": String,
+          "frequency": Number
+      }
+  ],
 
-    "properNouns": [ String ],
+  "properNouns": [ String ],
 
-    "nouns": [ String ],
+  "nouns": [ String ],
 
-    "tokens": [ String ],
+  "tokens": [ String ],
 
-    "uniqueWords": [ String ],
+  "uniqueWords": [ String ],
 
-  }
-  ```
-
-  ---
-
-  ### `http://codesome.pythonanywhere.com/topics`
-
-  #### Request parameters
-  * `str`: the text to be parsed
-
-  ### Result structure
-
-  Result type: [JSON string](http://json.org/example.html)
-
-  ```
-  {
-    "topics": [ String ]
-  }
-  ```
+}
+```
 
 ---
 
-#### Example results
+### `http://codesome.pythonanywhere.com/topics`
+
+#### Request parameters
+* `str`: the text to be parsed
+
+### Result structure
+
+Result type: [JSON string](http://json.org/example.html)
+
+```
+{
+  "topics": [ String ]
+}
+```
+
+---
+
+### Example results
 
 #### `http://codesome.pythonanywhere.com/parse`
 
@@ -645,7 +645,7 @@ str=I%20am%20a%20movie%20fanatic.%20When%20friends%20want%20to%20know%20what%20p
 #### `http://codesome.pythonanywhere.com/topics`
 
 
-* #### str=this%20article%20is%20about%20a%20movie
+* str=this%20article%20is%20about%20a%20movie
 
   ```
   {
@@ -655,7 +655,8 @@ str=I%20am%20a%20movie%20fanatic.%20When%20friends%20want%20to%20know%20what%20p
   }
   ```
 
-*   #### str=the%20next%20match%20is%20going%20to%20be%20played%20in%20england
+
+* str=the%20next%20match%20is%20going%20to%20be%20played%20in%20england
 
   ```
   {
