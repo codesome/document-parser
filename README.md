@@ -642,25 +642,31 @@ str=I%20am%20a%20movie%20fanatic.%20When%20friends%20want%20to%20know%20what%20p
   ```
 
 
-  #### `http://codesome.pythonanywhere.com/topics`
+#### `http://codesome.pythonanywhere.com/topics`
 
 
-  * #### str=this%20article%20is%20about%20a%20movie
+* #### str=this%20article%20is%20about%20a%20movie
 
-    ```
-    {
-      "topics": [
-        "entertainment"
-      ]
-    }
-    ```
+  ```
+  {
+    "topics": [
+      "entertainment"
+    ]
+  }
+  ```
 
-  *   #### str=the%20next%20match%20is%20going%20to%20be%20played%20in%20england
+*   #### str=the%20next%20match%20is%20going%20to%20be%20played%20in%20england
 
-    ```
-    {
-      "topics": [
-        "sports"
-      ]
-    }
-    ```
+  ```
+  {
+    "topics": [
+      "sports"
+    ]
+  }
+  ```
+
+---
+
+References:
+* [https://gist.github.com/alexbowe/879414](https://gist.github.com/alexbowe/879414)
+* [https://www.eecis.udel.edu/~trnka/CISC889-11S/lectures/dongqing-chunking.pdf](https://www.eecis.udel.edu/~trnka/CISC889-11S/lectures/dongqing-chunking.pdf)
