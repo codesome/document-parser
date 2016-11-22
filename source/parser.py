@@ -74,7 +74,6 @@ def topics(doc):
                     else :
                         break
 
-
             return { "topics":result }
 
         except:

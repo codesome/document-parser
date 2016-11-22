@@ -1,45 +1,10 @@
 import re
 from keywords import keywords
+from point_table import point_table
 from nltk.corpus import stopwords
 stop = set(stopwords.words('english'))
 
-topic_keywords = {
-
-    "entertainment": {
-        "sets": [
-            {
-                "words":["entertainment","song","movie","film","music","actor"],
-                "points": 3
-            },
-            {
-                "words":["character","director","action","fiction","role"],
-                "points": 2
-            },
-            {
-                "words":["market","party","play"],
-                "points": 1
-            }
-        ]
-    },
-
-    "sports": {
-        "sets": [
-            {
-                "words":["sport","olympics","soccer","football","cricket","archery", "athletics", "badminton", "basketball", "volleyball", "boxing", "cycling", "diving", "fencing", "golf", "gymnastics", "handball", "hockey", "judo", "rowing", "rugby", "sailing", "shooting", "swimming", "tennis", "wrestling", "weightlifting"],
-                "points": 3
-            },
-            {
-                "words":["match","athelete","tournament","team","player","players","series","runner","goal","league","hole","batsman","game","cup","wicket"],
-                "points": 2
-            },
-            {
-                "words":["play","association","season","court","test","club","round","track"],
-                "points": 1
-            }
-        ]
-    }
-
-}
+topic_keywords = point_table()
 
 def tokenize(sentence):
     """ Returns an array with all the words in the sentence """
@@ -104,10 +69,9 @@ def topic_points(doc):
     }
 
     for i in lda_topics:
-        for tp in topic_keywords:
-            for s in topic_keywords[tp]["sets"]:
-                if i in s["words"]:
-                    points[tp] += s["points"]
+        if i in topic_keywords:
+            for j in topic_keywords[i]:
+                points[ j[0] ] += j[1]
 
     return [ {"topic":t,"points":points[t]} for t in points ]
 
