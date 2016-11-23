@@ -2,6 +2,7 @@ import re
 from keywords import keywords
 from point_table import point_table
 from nltk.corpus import stopwords
+from nltk import pos_tag
 stop = set(stopwords.words('english'))
 
 topic_keywords = point_table()
@@ -57,6 +58,28 @@ def withoutStopwords(words):
         # end if
     # end for
     return wordDictionary
+
+def getWordTags(reducedArray):
+    """ To return parts of speech tagged words """
+    return pos_tag( [ obj["word"] for obj in reducedArray ] )
+
+def getNouns(wordTags):
+    """ To return nouns from the tagged words """
+    isNoun = (lambda tag: tag[:2]=="NN")
+    return [ wrd for(wrd,tag) in wordTags if isNoun(tag) ]
+
+def getProperNouns(wordTags):
+    """ To return proper nouns from the tagged words """
+    isProperNoun = (lambda tag: tag[:3]=="NNP")
+    return [ wrd for(wrd,tag) in wordTags if isProperNoun(tag) ]
+
+def getNounsAndProperNouns(wordTags):
+    """ To return nouns and proper nouns from the tagged words """
+    return {
+        "nouns": getNouns(wordTags),
+        "properNouns": getProperNouns(wordTags)
+    }
+
 
 def topic_points(doc):
     """ Assigns points to the topics """

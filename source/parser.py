@@ -1,4 +1,3 @@
-from pos import *
 from parser_resource import *
 
 
@@ -35,9 +34,9 @@ def parse (args):
 
                 if args.get('properNouns')=="true":
 
-                    NN = getNounsAndProperNouns( getWordTags(reducedArray) )
-                    result['nouns'] = NN['nouns']
-                    result['properNoun'] = NN['properNoun']
+                    NN_ = getNounsAndProperNouns( getWordTags(reducedArray) )
+                    result['nouns'] = NN_['nouns']
+                    result['properNoun'] = NN_['properNoun']
 
                 else:
                     result['nouns'] = getNouns( getWordTags(reducedArray) )
