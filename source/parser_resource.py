@@ -1,17 +1,15 @@
 import re
-from keywords import keywords
 from point_table import point_table
 from nltk.corpus import stopwords
 from nltk import pos_tag
-stop = set(stopwords.words('english'))
+stop = set(stopwords.words('english')) # set of all english stopwords
 
-topic_keywords = point_table()
+word_points = point_table()
 
 def tokenize(sentence):
     """ Returns an array with all the words in the sentence """
     s = sentence[:]
 
-    # comment out the any of the following 4 lines according to the need
     s = re.compile("\t").sub(" ",s) # replacing tab space with single space
     s = re.compile("[-_(),&.]").sub(" ",s) # removing special characters - _ ( ) , & .
     s = re.compile("[^A-Za-z ]").sub("",s) # removing non alphabets
@@ -79,24 +77,6 @@ def getNounsAndProperNouns(wordTags):
         "nouns": getNouns(wordTags),
         "properNouns": getProperNouns(wordTags)
     }
-
-
-def topic_points(doc):
-    """ Assigns points to the topics """
-    
-    lda_topics = keywords(doc.lower())
-
-    points = {
-        "entertainment":0,
-        "sports":0
-    }
-
-    for i in lda_topics:
-        if i in topic_keywords:
-            for j in topic_keywords[i]:
-                points[ j[0] ] += j[1]
-
-    return [ {"topic":t,"points":points[t]} for t in points ]
 
 def getDifferenceLimit(val):
     if val>0 and val<5:

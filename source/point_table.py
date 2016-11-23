@@ -37,14 +37,25 @@ point_distribution = {
 }
 
 def point_table():
+    """ 
+        To return the reduced dictionary of the keywords from 'point_distribution' 
+        Reduced dictionary format:
+            {
+                "word1": [ ("topic1",points) , ("topic2", points) , . . . ],
+                "word2": [ ("topicX",points) , ("topicY", points) , . . . ],
+                .
+                .
+                .
+            }
+    """
+    allWords = {}
 
-	allWords = {}
-
-	for tp in point_distribution:
-		for s in point_distribution[tp]["sets"]:
-			for w in s["words"]:
-				if w not in allWords:
-					allWords[w] = []
+    for tp in point_distribution:
+    	for s in point_distribution[tp]["sets"]:
+    		for w in s["words"]:
+    			if w not in allWords:
+    				allWords[w] = []    
 
 				allWords[w].append( (tp , s["points"]) )
-	return allWords
+
+    return allWords
