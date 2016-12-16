@@ -4,7 +4,6 @@ from keywords import keywords
 def parse (args):
     """ for '/parse' request """
     try:
-
         result = None
         if args and args.get('str'):
 
@@ -39,13 +38,12 @@ def parse (args):
 
             # NOUNS [start]
             if args.get('nouns') != "false":
-                
                 # requested for nouns
                 if args.get('properNouns')=="true":
                     # requested for nouns and proper nouns
                     NN_ = getNounsAndProperNouns( getWordTags(reducedArray) )
                     result['nouns'] = NN_['nouns']
-                    result['properNoun'] = NN_['properNoun']
+                    result['properNoun'] = NN_['properNouns']
 
                 else:
                     # not requested for proper nouns
